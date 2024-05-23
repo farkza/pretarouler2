@@ -1,0 +1,17 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+.DS_Store
+*.log
+*.bak
+*.swp
+instance/
+.webassets-cache
+.env.bak
+.venv/
+.envrc
+.vscode/

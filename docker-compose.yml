@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongodb:
+    build: ./mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb/mongo_dump:/docker-entrypoint-initdb.d/mongo_dump
+      - ./mongodb/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+    environment:
+      - MONGO_INITDB_DATABASE=pretarouler
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
