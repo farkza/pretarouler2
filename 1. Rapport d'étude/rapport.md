@@ -40,6 +40,29 @@ afin d'identifier celui qui répondra le mieux à vos besoins.
 
 Les systèmes de gestion de base de données NoSQL ont gagné en popularité grâce à leur capacité à gérer de grandes quantités de données non structurées ou semi-structurées, leur évolutivité horizontale et leurs performances élevées. Cette étude compare quatre SGBD NoSQL majeurs : DynamoDB, MongoDB, Cassandra et Couchbase. Nous analyserons leurs caractéristiques, performances, cas d'utilisation et limitations pour déterminer lequel répond le mieux à nos besoins.
 
+## Critères de Choix
+
+1. **Adaptation au Scaling Out vs Scaling Up** (20%)
+   - La capacité de la base de données à évoluer horizontalement (scaling out) ou verticalement (scaling up).
+
+2. **Modélisation et Stockage des Données** (15%)
+   - La capacité de l'outil à modéliser et stocker les données requises pour le service.
+
+3. **Calculs et Agrégations** (15%)
+   - La capacité de l'outil à effectuer des calculs et agrégations requis par le service.
+
+4. **Coût Total de Propriété** (20%)
+   - Coût de l'outil (licence, hébergement, maintenance, etc.).
+
+5. **Documentation et Support** (10%)
+   - Qualité de la documentation et disponibilité du support.
+
+6. **Disponibilité des Compétences sur le Marché** (10%)
+   - Facilité à trouver des compétences pour l'utilisation de l'outil.
+
+7. **Modèle CAP** (10%)
+   - Analyse de la position de l'outil dans le modèle CAP (Consistance, Disponibilité, Tolérance au partitionnement).
+
 ## 1. Amazon DynamoDB
 
 ### Caractéristiques de DynamoDB
@@ -69,6 +92,16 @@ Les systèmes de gestion de base de données NoSQL ont gagné en popularité gr�
 - Coût potentiellement élevé pour des charges de travail élevées et imprévisibles
 - Complexité de gestion des index secondaires
 
+### Analyse des Critères de DynamoDB
+
+1. **Scaling Out/Up** : Excellent pour le scaling out.
+2. **Modélisation et Stockage des Données** : Adapté pour des données semi-structurées.
+3. **Calculs et Agrégations** : Limité, nécessite souvent des services AWS complémentaires.
+4. **Coût** : Variable, peut être élevé pour des utilisations intensives.
+5. **Documentation et Support** : Excellente documentation et support AWS.
+6. **Compétences** : Forte disponibilité sur le marché, mais dépendance aux compétences AWS.
+7. **Modèle CAP** : AP (Disponibilité et Tolérance au partitionnement, Consistance éventuellement).
+
 ## 2. MongoDB
 
 ### Caractéristiques de MongoDB
@@ -96,6 +129,16 @@ Les systèmes de gestion de base de données NoSQL ont gagné en popularité gr�
 
 - Complexité de la configuration et de la gestion du sharding
 - Utilisation élevée de la mémoire pour les index
+
+### Analyse des Critères de MongoDB
+
+1. **Scaling Out/Up** : Excellent pour le scaling out avec sharding.
+2. **Modélisation et Stockage des Données** : Très flexible pour des données semi-structurées et non structurées.
+3. **Calculs et Agrégations** : Excellente capacité avec l'agrégation de framework.
+4. **Coût** : Coût compétitif, varie avec les besoins d'hébergement et de maintenance.
+5. **Documentation et Support** : Excellente documentation et support communautaire.
+6. **Compétences** : Très répandues et disponibles sur le marché.
+7. **Modèle CAP** : CP (Consistance et Tolérance au partitionnement, Disponibilité éventuellement).
 
 ## 3. Apache Cassandra
 
@@ -125,6 +168,18 @@ Les systèmes de gestion de base de données NoSQL ont gagné en popularité gr�
 - Complexité de la modélisation des données
 - Difficulté de gestion des transactions ACID
 
+### Analyse des Critères de Cassandra
+
+1. **Scaling Out/Up** : Excellent pour le scaling out.
+2. **Modélisation et Stockage des Données** : Adapté pour des données structurées avec besoin de haute disponibilité.
+3. **Calculs et Agrégations** : Moins adapté pour des agrégations complexes.
+4. **Coût** : Open source, mais le coût peut augmenter avec la gestion et le support.
+5
+
+. **Documentation et Support** : Bonne documentation, mais support commercial nécessaire pour une utilisation avancée.
+6. **Compétences** : Compétences disponibles, mais moins courantes que MongoDB.
+7. **Modèle CAP** : AP (Disponibilité et Tolérance au partitionnement, Consistance éventuellement).
+
 ## 4. Couchbase
 
 ### Caractéristiques de Couchbase
@@ -153,18 +208,30 @@ Les systèmes de gestion de base de données NoSQL ont gagné en popularité gr�
 - Configuration et gestion peuvent être complexes
 - Consistance éventuellement pour les opérations d'écriture
 
+### Analyse des Critères de Couchbase
+
+1. **Scaling Out/Up** : Excellent pour le scaling out.
+2. **Modélisation et Stockage des Données** : Très flexible pour des données non structurées.
+3. **Calculs et Agrégations** : Bonne capacité d'agrégation.
+4. **Coût** : Coût compétitif, dépend des besoins d'hébergement et de support.
+5. **Documentation et Support** : Bonne documentation et support professionnel disponible.
+6. **Compétences** : Moins répandues que MongoDB, mais disponibles.
+7. **Modèle CAP** : CP (Consistance et Tolérance au partitionnement, Disponibilité éventuellement).
+
 ## Conclusion
 
-Après avoir comparé DynamoDB, MongoDB, Cassandra et Couchbase, nous recommandons MongoDB comme le choix optimal pour les raisons suivantes :
+Après avoir analysé les critères de choix pour DynamoDB, MongoDB, Cassandra et Couchbase, MongoDB se distingue comme la meilleure solution pour les raisons suivantes :
 
 1. **Flexibilité du Modèle de Données** : MongoDB offre une grande flexibilité grâce à son modèle de données basé sur des documents JSON, ce qui permet une évolution facile du schéma sans impact majeur sur les applications.
 
-2. **Transactions ACID** : Depuis la version 4.0, MongoDB supporte les transactions ACID, ce qui garantit l'intégrité des données pour des opérations complexes.
+2. **Transactions ACID** : Depuis la version 4.0, MongoDB supporte les transactions ACID, garantissant l'intégrité des données pour des opérations complexes.
 
 3. **Écosystème et Intégration** : MongoDB bénéficie d'un large écosystème de bibliothèques et d'outils, facilitant son intégration avec divers langages de programmation et frameworks.
 
 4. **Communauté et Support** : MongoDB dispose d'une vaste communauté de développeurs et d'un support professionnel disponible, ce qui est un atout majeur pour la résolution de problèmes et l'implémentation de solutions.
 
 5. **Performance et Scalabilité** : Bien que la gestion du sharding puisse être complexe, MongoDB offre des solutions robustes pour la scalabilité horizontale et des performances élevées adaptées à une grande variété de cas d'utilisation.
+
+6. **Modèle CAP** : MongoDB est conforme au modèle CP, ce qui signifie qu'il privilégie la consistance et la tolérance au partitionnement, tout en offrant une disponibilité élevée.
 
 **MongoDB représente donc le meilleur compromis entre flexibilité, performance, et support des transactions ACID, répondant ainsi de manière optimale à nos besoins.**
