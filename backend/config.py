@@ -6,3 +6,4 @@ class Settings:
     COLLECTION_NAME: str = "cars"
 
 settings = Settings()
+

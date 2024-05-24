@@ -6,6 +6,7 @@ from bson import ObjectId
 from schemas.car import CarResponse, CarCreate
 import os
 import logging
+from db import *
 
 router = APIRouter()
 
@@ -25,7 +26,7 @@ def convert_objectid_to_str(doc):
         doc.pop("_id")
     return doc
 
-@router.get("/cars/", response_model=list[CarResponse])
+@router.get("/cars/", response_model=list[CarResponse], tags=["Cars"])
 async def get_cars():
     cars = []
     try:
@@ -38,7 +39,7 @@ async def get_cars():
         raise HTTPException(status_code=500, detail=str(e))
     return cars
 
-@router.get("/cars/{car_id}", response_model=CarResponse)
+@router.get("/cars/{car_id}", response_model=CarResponse, tags=["Cars"])
 async def get_car(car_id: str):
     try:
         car = collection.find_one({"_id": ObjectId(car_id)})
@@ -49,7 +50,7 @@ async def get_car(car_id: str):
         raise HTTPException(status_code=500, detail=str(e))
     return car
 
-@router.post("/cars/", response_model=CarResponse)
+@router.post("/cars/", response_model=CarResponse, tags=["Cars"])
 async def add_car(car: CarCreate):
     try:
         car_data = car.dict(by_alias=True)

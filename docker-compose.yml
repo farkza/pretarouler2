@@ -8,6 +8,7 @@ services:
     volumes:
       - ./mongodb/mongo_dump:/docker-entrypoint-initdb.d/mongo_dump
       - ./mongodb/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - ./mongodb/mongod.conf:/etc/mongod.conf
     environment:
       - MONGO_INITDB_DATABASE=pretarouler
 

@@ -1,7 +1,6 @@
 # schemas/car.py
 
 from pydantic import BaseModel, Field
-
 class CarBase(BaseModel):
     brand: str
     model: str
@@ -15,13 +14,10 @@ class CarBase(BaseModel):
     price_per_day: int = Field(..., alias="price_per_day")
     city: str
     img: str = ""
-
 class CarCreate(CarBase):
     pass
-
 class CarResponse(CarBase):
     id: str
-
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
