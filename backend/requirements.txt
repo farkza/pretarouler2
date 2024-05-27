@@ -3,3 +3,9 @@ uvicorn
 pymongo
 motor
 pydantic
+passlib
+bcrypt
+python-jose
+python-dotenv
+jq
+

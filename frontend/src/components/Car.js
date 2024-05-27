@@ -8,7 +8,7 @@ const Car = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await fetch('http://localhost:8000/cars');
+        const response = await fetch('http://localhost:8000/api/cars');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
