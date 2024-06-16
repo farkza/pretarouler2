@@ -1,30 +1,30 @@
 from fastapi import FastAPI
-from routers import cars
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from routers import cars, users
 
 app = FastAPI()
 
-app.include_router(cars.router)
-
-
-# Origines autorisées (à ajuster selon vos besoins)
+# Autoriser les origines spécifiques pour les requêtes CORS
 origins = [
     "http://localhost",
-    "http://localhost:3000",  # Ajoutez votre adresse React
+    "http://localhost:3000",  # Adresse de votre application ReactJS
 ]
 
 # Ajouter le middleware CORS à votre application
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Modifier ceci pour autoriser les origines spécifiques
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
     expose_headers=["*"],
-    allow_origin_regex="https?://.*",
 )
+
+# Inclure les routes des différents routeurs
+app.include_router(cars.router)
+app.include_router(users.router)
 
 # Montage du dossier d'images pour être servi par FastAPI
 app.mount("/img", StaticFiles(directory="img"), name="img")

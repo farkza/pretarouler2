@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import '../css/home.css';
 import logo from '../img/pretarouler-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import de useNavigate pour la redirection
 import Car from '../components/Car';
-import FAQ from '../components/FAQ'; // Chemin relatif vers FAQ.js
+import FAQ from '../components/FAQ';
 
-function App() {
+function Home() {
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); // Utilisation de useNavigate pour la redirection
+
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const response = await fetch('http://localhost:8000/cars/664e2e2a23a8e0dcdc3e567f');
+        const response = await fetch('http://localhost:8000/api/cars/664e2e2a23a8e0dcdc3e567f');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -27,6 +29,11 @@ function App() {
     };
 
     fetchCarDetails();
+  }, []);
+
+  useEffect(() => {
+    const userIsLoggedIn = true; // Example: user is logged in
+    setIsLoggedIn(userIsLoggedIn);
   }, []);
 
   useEffect(() => {
@@ -45,6 +52,12 @@ function App() {
     });
   };
 
+  const handleLogout = () => {
+    // Ajouter ici la logique de déconnexion, par exemple supprimer le token JWT ou vider le localStorage
+    // Après la déconnexion, rediriger l'utilisateur vers la page de connexion
+    navigate('/login'); // Redirection vers la page de connexion après déconnexion
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -53,8 +66,9 @@ function App() {
     return <div>Error: {error.message}</div>;
   }
 
+
   return (
-    <div className="App">
+    <div className="Home">
       <header className="navbar">
         <div className="logo">
           <img src={logo} alt="Logo" />
@@ -66,66 +80,66 @@ function App() {
             <li><a href="#about">À propos</a></li>
           </ul>
         </nav>
-        <Link to="/login">
-          <button className="login-button">Se connecter</button>
-        </Link>
+        {isLoggedIn ? (
+          <button className="logout-button" onClick={handleLogout}>Se déconnecter</button>
+        ) : (
+          <Link to="/login">
+            <button className="login-button">Se connecter</button>
+          </Link>
+        )}
       </header>
-        <main className="car-details">
-          <div className="main-container">
-            <div className="car-container">
-              <h1>{car.model}</h1>
-              <div className="car-img">
-                <img src={`http://localhost:8000${car.img}`} alt={`${car.brand} ${car.model}`} />
-              </div>
+      <main className="car-details">
+        <div className="main-container">
+          <div className="car-container">
+            <h1>{car.model}</h1>
+            <div className="car-img">
+              <img src={`http://localhost:8000${car.img}`} alt={`${car.brand} ${car.model}`} />
             </div>
           </div>
-          <div className="car-info">
-            <div className="car-info-item">
-              <span className="car-info-value">{car.horsepower}</span>
-              <span className="car-info-title">Chevaux</span>
-            </div>
-            <div className="car-info-separator"></div>
-            <div className="car-info-item">
-              <span className="car-info-value">{car.acceleration_0_100}s</span>
-              <span className="car-info-title">0-100 km/h</span>
-            </div>
-            <div className="car-info-separator"></div>
-            <div className="car-info-item">
-              <span className="car-info-value">{car.autonomy} km</span>
-              <span className="car-info-title">Autonomie</span>
-            </div>
-            <div className="car-info-separator"></div>
-            <div className="car-info-item">
-              <span className="car-info-value">{car.fuel_type}</span>
-              <span className="car-info-title">Type d'essence</span>
-            </div>
-            <div className="reserve-container">
-              <button className="reserve-button">Réserver</button>
-            </div>
+        </div>
+        <div className="car-info">
+          <div className="car-info-item">
+            <span className="car-info-value">{car.horsepower}</span>
+            <span className="car-info-title">Chevaux</span>
           </div>
-        </main>
-
-        <section className="most-rented">
-          <h2 className="most-rented-title">Les plus louées</h2>
-          <h3 className="most-rented-subtitle">Réserve ta voiture dès maintenant !</h3>
-          <Car />
-        </section>
-
-        <section className="most-rented">
-          <h2 className="most-rented-title">Proche de chez vous</h2>
-          <h3 className="most-rented-subtitle">Loue une voiture à côté de chez toi</h3>
-          <Car />
-        </section>
-
-        <section className="advertisement">
-          <h1 className="bottom-section-title">Conduit la tienne aujourd’hui</h1>
-          <h2 className="bottom-section-subtitle">Visite dès maintenant notre catalogue de véhicule et réserve la voiture de tes rêves !</h2>
-          <button className="bottom-section-button">Réservez maintenant</button>
-        </section>
-        <section className="faq-section-wrapper">
-          <FAQ />
-        </section>
-
+          <div className="car-info-separator"></div>
+          <div className="car-info-item">
+            <span className="car-info-value">{car.acceleration_0_100}s</span>
+            <span className="car-info-title">0-100 km/h</span>
+          </div>
+          <div className="car-info-separator"></div>
+          <div className="car-info-item">
+            <span className="car-info-value">{car.autonomy} km</span>
+            <span className="car-info-title">Autonomie</span>
+          </div>
+          <div className="car-info-separator"></div>
+          <div className="car-info-item">
+            <span className="car-info-value">{car.fuel_type}</span>
+            <span className="car-info-title">Type d'essence</span>
+          </div>
+          <div className="reserve-container">
+            <button className="reserve-button">Réserver</button>
+          </div>
+        </div>
+      </main>
+      <section className="most-rented">
+        <h2 className="most-rented-title">Les plus louées</h2>
+        <h3 className="most-rented-subtitle">Réserve ta voiture dès maintenant !</h3>
+        <Car />
+      </section>
+      <section className="most-rented">
+        <h2 className="most-rented-title">Proche de chez vous</h2>
+        <h3 className="most-rented-subtitle">Loue une voiture à côté de chez toi</h3>
+        <Car />
+      </section>
+      <section className="advertisement">
+        <h1 className="bottom-section-title">Conduit la tienne aujourd’hui</h1>
+        <h2 className="bottom-section-subtitle">Visite dès maintenant notre catalogue de véhicule et réserve la voiture de tes rêves !</h2>
+        <button className="bottom-section-button">Réservez maintenant</button>
+      </section>
+      <section className="faq-section-wrapper">
+        <FAQ />
+      </section>
       <footer>
         <p>&copy; 2024 Pret A Rouler</p>
       </footer>
@@ -133,4 +147,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
