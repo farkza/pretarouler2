@@ -1,7 +1,6 @@
 import os
 from datetime import datetime, timedelta
 from typing import Optional
-
 from jose import JWTError, jwt
 from fastapi import HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -53,3 +52,12 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         headers={"WWW-Authenticate": "Bearer"},
     )
     return verify_token(token, credentials_exception)
+
+def get_current_user_by_token(token: str):
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    return verify_token(token, credentials_exception)
+

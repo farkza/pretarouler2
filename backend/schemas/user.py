@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import List
-
 class UserCreate(BaseModel):
     name: str
     first_name: str
@@ -12,7 +11,6 @@ class UserCreate(BaseModel):
     password: str
     city: str
     reservations: List[str] = []
-
 class UserLogin(BaseModel):
     email: str
     password: str

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../css/login.css'; // Assurez-vous que ce fichier CSS est correctement référencé
+import '../css/login.css';
 import logo from '../img/pretarouler-logo.png';
 
 const Login = () => {
@@ -24,8 +24,14 @@ const Login = () => {
         throw new Error(errorData.detail);
       }
 
+      const userData = await response.json();
+      const { access_token } = userData;
+
+      // Stocker l'access token dans le stockage local
+      localStorage.setItem('access_token', access_token);
+
       // Rediriger l'utilisateur vers "/home"
-      window.location.href = "/home";
+      window.location.href = `/home`; 
     } catch (error) {
       setError(error.message);
     }
