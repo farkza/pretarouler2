@@ -7,7 +7,7 @@ L'objectif de cette étude est d'évaluer et comparer quatre systèmes de gestio
 - Amazon DynamoDB
 - MongoDB
 - Apache Cassandra
-- Couchbase (ou un autre SGBD NoSQL de votre choix)
+- Couchbase
 
 afin de déterminer celui qui répond le mieux à nos besoins spécifiques.
 
