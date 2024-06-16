@@ -3,9 +3,17 @@ from pymongo import MongoClient
 from passlib.context import CryptContext
 from bson import ObjectId
 from schemas.user import UserCreate, UserLogin
+from auth import create_access_token, create_refresh_token, verify_token
 import os
+from jose import JWTError
+from dotenv import load_dotenv
 
 router = APIRouter()
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("SECRET_KEY", "mysecretkey")
+ALGORITHM = "HS256"
 
 # Configuration MongoDB
 MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017/")
@@ -47,4 +55,54 @@ async def login(user_login: UserLogin):
     user = get_user(user_login.email)
     if not user or not verify_password(user_login.password, user["password"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
-    return {"message": "Login successful"}
+    access_token = create_access_token(data={"sub": user_login.email})
+    refresh_token = create_refresh_token(data={"sub": user_login.email})
+    city = user.get("city", "")
+    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer", "city": city}
+
+@router.post("/api/refresh_token", tags=["Authentication"])
+async def refresh_token(refresh_token: str):
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    token_data = verify_token(refresh_token, credentials_exception)
+    new_access_token = create_access_token(data={"sub": token_data.email})
+    return {"access_token": new_access_token, "token_type": "bearer"}
+
+@router.delete("/api/delete_user/{user_id}", tags=["Users"])
+async def delete_user(user_id: str):
+    try:
+        result = collection.delete_one({"_id": ObjectId(user_id)})
+        if result.deleted_count == 1:
+            return {"message": "User deleted successfully"}
+        else:
+            raise HTTPException(status_code=404, detail="User not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/api/get_user/", tags=["Users"])
+async def get_user_by_email(email: str):
+    user = get_user(email)
+    if user:
+        user["_id"] = str(user["_id"])  # Convertir l'ObjectId en une chaîne pour la réponse JSON
+        return user
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+@router.get("/api/get_user_by_token/{token}", tags=["Users"])
+async def get_user_by_token(token: str):
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Invalid token",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    token_data = verify_token(token, credentials_exception)
+    user = get_user(token_data.email)
+    if user:
+        user["_id"] = str(user["_id"])  # Convertir l'ObjectId en une chaîne pour la réponse JSON
+        return user
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+

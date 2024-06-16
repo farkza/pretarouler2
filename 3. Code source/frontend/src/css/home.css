@@ -8,91 +8,26 @@
 
 body {
     font-family: 'Proxima Nova', sans-serif;
-  }
-  
-  .logo img {
-    height: 50px;
-    width: auto;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .logo {
-    font-size: 24px;
-  }
-  
-  nav {
-    display: flex;
-    justify-content: center; /* Centre la liste horizontalement */
-  }
-  
-  nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex; /* Pour aligner les éléments horizontalement */
-  }
-  
-  nav ul li {
-    display: inline;
-    margin-right: 50px;
-  }
-  
-  nav ul li:last-child {
-    margin-right: 0; /* Pour supprimer la marge à droite du dernier élément */
-  }
-  
-  nav ul li a {
-    font-weight: 600;
-    text-decoration: none;
-    color: #0F0E43; /* Couleur des liens dans la barre de navigation */
-    opacity: 30%;
-    cursor: pointer;
-  }
+}
 
-  nav ul li a.active {
-    opacity: 100%;
-  }  
-  
-  .login-button {
-    background-color: transparent; /* Fond transparent */
-    color: #0F0E43;
-    border: 2px solid rgba(0, 0, 0, 0.200); /* Couleur et épaisseur du contour */
-    padding: 10px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-  }
-
-  .logout-button {
-    background-color: transparent; /* Fond transparent */
-    color: #0F0E43;
-    padding: 10px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-  }  
-  
-  .car-details {
+.car-details {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
-  }
-  
-  .main-container {
+}
+
+.main-container {
     position: relative;
-  }
-  
-  .car-container {
+}
+
+.car-container {
     position: relative; /* Position relative pour permettre le positionnement absolu de .car-model */
-  }
-  
-  .car-container h1 {
-    font-size: 250px; /* Taille du titre */
+    margin-top: -5%; 
+}
+
+.car-container h1 {
+    font-size: 13.021vw; /* Taille du titre */
     color: #000000; /* Couleur du titre */
     opacity: 20%;
     text-align: center;
@@ -101,20 +36,20 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     white-space: nowrap;
-    z-index: 1; 
-  }
-  
-  .car-img {
+    z-index: 1;
+}
+
+.car-img {
     margin-top: 100px; /* Ajustez cette valeur pour baisser l'image */
-  }
-  
-  .car-img img {
-    max-width: 800px;
+}
+
+.car-img img {
+    max-width: 62.5vw;
     z-index: 2; /* Devant le titre */
     position: relative;
-  }
-  
-  .car-info {
+}
+
+.car-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -124,35 +59,35 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 50px;
-  }
-  
-  .car-info-item {
+}
+
+.car-info-item {
     padding: 7px;
     display: flex;
     flex-direction: column;
-  }
-  
-  .car-info-value {
+}
+
+.car-info-value {
     font-size: 22px;
     font-weight: bold;
     color: #0F0E43;
-  }
-  
-  .car-info-title {
+}
+
+.car-info-title {
     font-size: 12px;
     color: #0F0E43;
     margin-top: 10%;
     opacity: 50%;
-  }
-  
-  .car-info-separator {
+}
+
+.car-info-separator {
     width: 1.5px;
     height: 50px;
     background-color: black;
     opacity: 20%;
-  }
-  
-  .reserve-button {
+}
+
+.reserve-button {
     background-color: #4743FB;
     color: #fff;
     border: none;
@@ -161,14 +96,15 @@ body {
     border-radius: 20px;
     font-weight: 700;
     cursor: pointer;
-  }
-  
-  .reserve-container {
+}
+
+.reserve-container {
     display: flex;
     align-items: center;
-  }
-  
-  .most-rented {
+}
+
+/* Styles pour la section most-rented */
+.most-rented {
     background-color: #f5f6f6;
     padding-left: 10%;
     padding-right: 10%;
@@ -177,79 +113,42 @@ body {
     display: flex;
     flex-direction: column; /* Nouvelle propriété pour aligner les éléments verticalement */
     align-items: flex-start; /* Aligne les éléments à gauche */
-  }
-  
-  .most-rented-subtitle {
+}
+
+.most-rented-subtitle {
     margin-top: 10px; /* Ajout d'une marge pour laisser de l'espace entre les titres */
-  }
-  
-  .car-card {
-    display: inline-block;
-    width: calc(33.33% - 20px); /* 33.33% pour répartir sur trois cartes par ligne, 20px pour compenser l'espacement entre les cartes */
-    margin: 10px; /* Espacement entre les cartes */
-    background-color: white;
-    border-radius: 8px;
-    padding: 10px;
-  }
-  
-  .car-card-details {
-    padding: 20px;
-    font-weight: 700;
-  }
-  
-  .car-card-details img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .car-card-details h3,
-  .car-card-details h4 {
-    color: #0f0e43;
-    margin: 0;
-  }
-  
-  .car-card-details h4 {
-    opacity: 50%;
-  }
-  
-  .car-card-details p span:first-child {
-    color: #4743FB; /* Couleur pour la valeur journalière */
-  }
-  
-  .car-card-details p span:last-child {
-    color: #0F0E43; /* Couleur pour "/jour" */
-  }
-  
+}
 
-  .most-rented-title {
+.most-rented-title {
     color: #0F0E43;
-  }
-  
-  .most-rented-subtitle {
+}
+
+.most-rented-subtitle {
     color: #0F0E43;
     opacity: 50%;
-  }
+}
 
-  .bottom-section {
+/* Styles pour la section bottom */
+.bottom-section {
     background-color: #050523;
     color: #FFFFFF;
-    padding: 100px 10%; 
-    text-align: left; 
+    padding: 100px 10%;
+    text-align: left;
     margin-top: 40px;
-  }
-  
-  .bottom-section-title {
+}
+
+.bottom-section-title {
     font-size: 36px;
     margin-bottom: 20px;
-  }
-  
-  .bottom-section-subtitle {
+}
+
+.bottom-section-subtitle {
     font-size: 24px;
     opacity: 0.7;
     margin-bottom: 30px;
-  }
-  
-  .bottom-section-button {
+}
+
+.bottom-section-button {
     background-color: #4743FB;
     color: #FFFFFF;
     border: none;
@@ -258,17 +157,84 @@ body {
     font-size: 20px;
     border-radius: 25px;
     cursor: pointer;
-  }
+}
 
-  .advertisement {
+.advertisement {
     background-color: #050523;
     color: #FFFFFF;
     padding: 100px 10%;
     text-align: center;
-  }
+}
 
-  footer{
+footer {
     text-align: center;
-  }
-  
-  
+}
+
+/* Media queries pour les petits écrans (téléphones) */
+@media (max-width: 800px) {
+    .car-container h1 {
+        top: 5%; /* Ajuster la position du texte */
+    }
+
+    .car-img {
+        margin-top: 50px; /* Réduire l'espacement supérieur */
+    }
+
+    .car-info {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .car-info-item {
+        flex: 1;
+        min-width: 25%;
+        text-align: center;
+    }
+
+    .car-info-separator {
+        display: none; /* Masquer les séparateurs sur les petits écrans */
+    }
+
+    .reserve-container {
+        margin-top: 20px; /* Ajouter un espacement supérieur pour le bouton de réservation */
+        width: 100%;
+        justify-content: center; /* Centrer le bouton de réservation */
+    }
+
+    .reserve-button {
+        width: 80%; /* Assurez-vous que le bouton prend toute la largeur disponible */
+        text-align: center;
+    }
+}
+
+/* Media queries pour les écrans moyens (tablettes) */
+@media (min-width: 1000px) and (max-width: 1000px) {
+
+    .car-img {
+        margin-top: 75px; /* Ajustez cette valeur pour baisser l'image sur tablette */
+    }
+
+    .car-info {
+        width: 90%; /* Ajustez la largeur de la section des infos sur tablette */
+    }
+
+    .car-info-item {
+        flex: 1;
+        min-width: 20%;
+        text-align: center;
+    }
+
+    .reserve-container {
+        margin-top: 20px; /* Ajouter un espacement supérieur pour le bouton de réservation */
+        width: 100%;
+        justify-content: center; /* Centrer le bouton de réservation */
+    }
+
+    .reserve-button {
+        width: 60%; /* Assurez-vous que le bouton prend une largeur adaptée pour tablette */
+        text-align: center;
+    }
+}
+

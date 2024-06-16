@@ -1,61 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import '../css/home.css';
-import logo from '../img/pretarouler-logo.png';
-import { Link, useNavigate } from 'react-router-dom'; // Import de useNavigate pour la redirection
-import Car from '../components/Car';
-import FAQ from '../components/FAQ';
+import {Link, useNavigate } from 'react-router-dom';
+import Car from '../components/Car'; // Import du composant Car
+import FAQ from '../components/FAQ'; // Import du composant FAQ
+import Navbar from '../components/NavBar';
 
 function Home() {
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // Utilisation de useNavigate pour la redirection
+  const [userFirstName, setUserFirstName] = useState('');
+  const [accessToken, setAccessToken] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCarDetails = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/cars/664e2e2a23a8e0dcdc3e567f');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setCar(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
+    const token = localStorage.getItem('access_token');
+    setAccessToken(token); 
+
+    const userIsLoggedIn = !!token;
+    setIsLoggedIn(userIsLoggedIn);
+
+    if (userIsLoggedIn) {
+      fetchUserData(token);
+    }
 
     fetchCarDetails();
   }, []);
 
-  useEffect(() => {
-    const userIsLoggedIn = true; // Example: user is logged in
-    setIsLoggedIn(userIsLoggedIn);
-  }, []);
-
-  useEffect(() => {
-    updateActiveNavLink();
-  }, []);
-
-  const updateActiveNavLink = () => {
-    const currentPath = window.location.pathname;
-    const navLinks = document.querySelectorAll('nav ul li a');
-    navLinks.forEach(link => {
-      if (link.getAttribute('href') === currentPath) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
+  const fetchUserData = async (accessToken) => {
+    try {
+      const response = await fetch('http://localhost:8000/api/get_user_by_token/', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Error fetching user data');
       }
-    });
+      const data = await response.json();
+      setUserFirstName(data.first_name);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  const fetchCarDetails = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/cars/664e2e2a23a8e0dcdc3e567f');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setCar(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
   };
 
   const handleLogout = () => {
-    // Ajouter ici la logique de déconnexion, par exemple supprimer le token JWT ou vider le localStorage
-    // Après la déconnexion, rediriger l'utilisateur vers la page de connexion
-    navigate('/login'); // Redirection vers la page de connexion après déconnexion
+    localStorage.removeItem('access_token');
+    navigate('/login');
   };
 
   if (loading) {
@@ -66,28 +75,10 @@ function Home() {
     return <div>Error: {error.message}</div>;
   }
 
-
   return (
     <div className="Home">
-      <header className="navbar">
-        <div className="logo">
-          <img src={logo} alt="Logo" />
-        </div>
-        <nav>
-          <ul>
-            <li><a href="#home" className="active">Accueil</a></li>
-            <li><a href="#catalogue">Catalogue</a></li>
-            <li><a href="#about">À propos</a></li>
-          </ul>
-        </nav>
-        {isLoggedIn ? (
-          <button className="logout-button" onClick={handleLogout}>Se déconnecter</button>
-        ) : (
-          <Link to="/login">
-            <button className="login-button">Se connecter</button>
-          </Link>
-        )}
-      </header>
+      <Navbar isLoggedIn={isLoggedIn} userFirstName={userFirstName} handleLogout={handleLogout} />
+
       <main className="car-details">
         <div className="main-container">
           <div className="car-container">
@@ -118,10 +109,13 @@ function Home() {
             <span className="car-info-title">Type d'essence</span>
           </div>
           <div className="reserve-container">
-            <button className="reserve-button">Réserver</button>
+            <Link to="/catalog">
+              <button className="reserve-button">Réserver</button>
+            </Link>
           </div>
         </div>
       </main>
+      
       <section className="most-rented">
         <h2 className="most-rented-title">Les plus louées</h2>
         <h3 className="most-rented-subtitle">Réserve ta voiture dès maintenant !</h3>
@@ -130,12 +124,14 @@ function Home() {
       <section className="most-rented">
         <h2 className="most-rented-title">Proche de chez vous</h2>
         <h3 className="most-rented-subtitle">Loue une voiture à côté de chez toi</h3>
-        <Car />
+        <Car accessToken={accessToken} />
       </section>
       <section className="advertisement">
         <h1 className="bottom-section-title">Conduit la tienne aujourd’hui</h1>
         <h2 className="bottom-section-subtitle">Visite dès maintenant notre catalogue de véhicule et réserve la voiture de tes rêves !</h2>
-        <button className="bottom-section-button">Réservez maintenant</button>
+        <Link to="/catalog">
+          <button className="bottom-section-button">Réservez maintenant</button>
+        </Link>
       </section>
       <section className="faq-section-wrapper">
         <FAQ />

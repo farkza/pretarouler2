@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from routers import cars, users
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 

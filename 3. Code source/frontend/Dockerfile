@@ -7,8 +7,8 @@ WORKDIR /app
 # Copier les fichiers nécessaires
 COPY . .
 
-# Installer les dépendances
-RUN npm install
+# Installer les dépendances et les mettre à jour
+RUN npm install && npm update
 
 # Exposer le port du serveur
 EXPOSE 3000

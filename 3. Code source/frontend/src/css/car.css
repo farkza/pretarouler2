@@ -1,0 +1,130 @@
+.car-card {
+  display: inline-block;
+  width: calc(33.33% - 20px); /* 33.33% pour trois cartes par ligne, avec 20px pour espacement */
+  margin: 10px; /* Espacement entre les cartes */
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.car-card-details {
+  padding: 20px;
+  font-weight: 700;
+}
+
+.car-card-details img {
+  width: 100%;
+  height: auto;
+}
+
+.car-card-details h3,
+.car-card-details h4 {
+  color: #0f0e43;
+  margin: 0;
+}
+
+.car-card-details h4 {
+  opacity: 50%;
+}
+
+.car-card-details p span:first-child {
+  color: #4743FB; /* Couleur pour la valeur journalière */
+}
+
+.car-card-details p span:last-child {
+  color: #0F0E43; /* Couleur pour "/jour" */
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .car-card {
+    width: calc(50% - 20px); /* Deux cartes par ligne sur les écrans de taille moyenne */
+  }
+}
+
+@media (max-width: 768px) {
+  .car-card {
+    width: calc(50% - 20px); /* Deux cartes par ligne sur tablette */
+  }
+}
+
+@media (max-width: 576px) {
+  .car-card {
+    width: calc(100% - 20px); /* Une carte par ligne sur les téléphones */
+  }
+}
+
+/* Popup styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #F5F6F6;
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  padding: 2.5%;
+  gap: 5%;
+  border-radius: 10px;
+}
+
+.popup-left, .popup-right {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.popup-left {
+  width: 60%;
+}
+
+.popup-right {
+  width: 35%;
+}
+
+.popup-image-container {
+  background: rgba(15, 14, 67, 0.1);
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.popup-image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.popup-right h3, .popup-right h4 {
+  color: #0f0e43;
+}
+
+.popup-right p {
+  margin: 10px 0;
+}
+
+.reserve-button {
+  background-color: #4743FB;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.reserve-button:hover {
+  background-color: #3733cc;
+}

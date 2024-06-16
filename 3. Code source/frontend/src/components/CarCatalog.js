@@ -1,84 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../css/car.css';
 
-const Car = ({ accessToken, selectedLocation, selectedBrand, sortOrder }) => {
-  const [cars, setCars] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [city, setCity] = useState('');
+const CarCatalog = ({ cars, selectedLocation, selectedBrand }) => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  useEffect(() => {
-    const fetchUserCity = async () => {
-      if (!accessToken) return;
-
-      try {
-        const response = await fetch(`http://localhost:8000/api/get_user_by_token/${accessToken}`);
-        if (!response.ok) {
-          throw new Error('Error fetching user city');
-        }
-        const userData = await response.json();
-        setCity(userData.city);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchUserCity();
-  }, [accessToken]);
-
-  useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/api/cars');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setCars(data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
-
-    fetchCars();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
+  // Filtrer les voitures en fonction de la localisation et de la marque sélectionnées
   let filteredCars = cars;
 
-  // Filter cars by user's city if accessToken is provided
-  if (accessToken && city) {
-    filteredCars = filteredCars.filter(car => car.city === city);
-  }
-
-  // Filter cars by selectedLocation
   if (selectedLocation && selectedLocation !== "") {
     filteredCars = filteredCars.filter(car => car.city === selectedLocation);
   }
 
-  // Filter cars by selectedBrand
   if (selectedBrand && selectedBrand !== "") {
     filteredCars = filteredCars.filter(car => car.brand === selectedBrand);
   }
 
-  // Exclude specific car by ID
   filteredCars = filteredCars.filter(car => car.id !== '664e2e2a23a8e0dcdc3e567f');
-
-  // Inverser l'ordre des voitures si l'ordre est "newest"
-  if (sortOrder === "newest" && selectedLocation === "" && selectedBrand === "") {
-    filteredCars = filteredCars.reverse();
-  }
 
   const handleCardClick = (car) => {
     setSelectedCar(car);
@@ -134,4 +72,4 @@ const Car = ({ accessToken, selectedLocation, selectedBrand, sortOrder }) => {
   );
 };
 
-export default Car;
+export default CarCatalog;
