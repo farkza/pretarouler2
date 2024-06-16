@@ -1,49 +1,86 @@
 # Manuel d'installation de l'application de location de voiture
 
-Ce manuel fournit des instructions détaillées pour installer l'ensemble de l'application de location de voiture sur une machine virtuelle Windows ou Linux en utilisant Docker pour la gestion des conteneurs, MongoDB Compass pour l'interface graphique de MongoDB, ReactJS pour le frontend et Python pour le backend.
+Ce guide vous explique comment installer l'application de location de voiture sur votre machine locale Windows, macOS ou Linux en utilisant Docker pour la gestion des conteneurs, MongoDB pour la base de données, ReactJS pour le frontend et Python pour le backend.
 
 ## Table des matières
 
 1. [Prérequis](#prérequis)
 2. [Installation de Docker](#installation-de-docker)
-3. [Installation de MongoDB Compass](#installation-de-mongodb-compass)
-4. [Clonage du Répertoire Git](#clonage-du-répertoire-git)
-5. [Installation du Backend Python](#installation-du-backend-python)
-6. [Installation du Frontend ReactJS](#installation-du-frontend-reactjs)
+   - [Windows](#installation-de-docker-sur-windows)
+   - [macOS](#installation-de-docker-sur-macos)
+   - [Linux](#installation-de-docker-sur-linux)
+3. [Clonage du Répertoire Git](#clonage-du-répertoire-git)
+4. [Installation du Backend Python](#installation-du-backend-python)
+5. [Installation du Frontend ReactJS](#installation-du-frontend-reactjs)
+6. [Initialisation de la Base de Données MongoDB](#initialisation-de-la-base-de-données-mongodb)
 7. [Exécution de l'application](#exécution-de-lapplication)
 
 ## Prérequis
 
-Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants :
+Avant de commencer, assurez-vous d'avoir :
 
-- Une machine virtuelle Windows ou Linux avec une connexion Internet.
-- Droits d'administration sur la machine virtuelle.
+- Un ordinateur Windows, macOS ou Linux avec une connexion Internet.
+- Des droits d'administration sur votre ordinateur.
 
 ## Installation de Docker
 
+### Installation de Docker sur Windows
+
 1. **Téléchargement de Docker :**
-   - Rendez-vous sur le site officiel de Docker et téléchargez la version appropriée pour votre système d'exploitation.
-   - Suivez les instructions d'installation pour installer Docker.
+   - Rendez-vous sur le [site officiel de Docker](https://www.docker.com/products/docker-desktop) et téléchargez Docker Desktop pour Windows.
+   - Suivez les instructions d'installation fournies.
 
 2. **Vérification de l'installation :**
-   - Ouvrez un terminal (Command Prompt sur Windows ou Terminal sur Linux).
-   - Tapez la commande suivante pour vérifier que Docker est correctement installé :
+   - Ouvrez PowerShell ou Command Prompt.
+   - Tapez la commande suivante pour vérifier l'installation de Docker :
 
      ```bash
      docker --version
      ```
 
-## Installation de MongoDB Compass
+### Installation de Docker sur macOS
 
-1. **Téléchargement de MongoDB Compass :**
-   - Rendez-vous sur le site officiel de MongoDB et téléchargez MongoDB Compass.
-   - Suivez les instructions d'installation pour votre système d'exploitation.
+1. **Téléchargement de Docker :**
+   - Rendez-vous sur le [site officiel de Docker](https://www.docker.com/products/docker-desktop) et téléchargez Docker Desktop pour macOS.
+   - Suivez les instructions d'installation fournies.
+
+2. **Vérification de l'installation :**
+   - Ouvrez le Terminal.
+   - Tapez la commande suivante pour vérifier l'installation de Docker :
+
+     ```bash
+     docker --version
+     ```
+
+### Installation de Docker sur Linux
+
+1. **Téléchargement et installation de Docker :**
+   - Ouvrez le Terminal et exécutez les commandes suivantes pour installer Docker :
+
+     ```bash
+     sudo apt-get update
+     sudo apt-get install -y docker.io
+     ```
+
+2. **Démarrage de Docker :**
+   - Exécutez la commande suivante pour démarrer Docker :
+
+     ```bash
+     sudo systemctl start docker
+     ```
+
+3. **Vérification de l'installation :**
+   - Tapez la commande suivante pour vérifier l'installation de Docker :
+
+     ```bash
+     docker --version
+     ```
 
 ## Clonage du Répertoire Git
 
 1. **Clonage du Projet :**
    - Ouvrez un terminal.
-   - Clonez le dépôt du projet à partir de GitHub :
+   - Clonez le dépôt du projet depuis GitHub :
 
      ```bash
      git clone https://github.com/farkza/pretarouler.git
@@ -52,7 +89,7 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
    - Accédez au répertoire du projet cloné :
 
      ```bash
-     cd votre-projet
+     cd pretarouler
      ```
 
 ## Installation du Backend Python
@@ -61,7 +98,7 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
    - Accédez au répertoire backend :
 
      ```bash
-     cd 3.Code source/backend
+     cd 3.Code\ source/backend
      ```
 
    - Créez un environnement virtuel Python :
@@ -77,14 +114,14 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
      venv\Scripts\activate
      ```
 
-   - Sur Linux :
+   - Sur macOS/Linux :
 
      ```bash
      source venv/bin/activate
      ```
 
 3. **Installation des dépendances :**
-   - Installez les dépendances Python requises :
+   - Installez les dépendances Python nécessaires :
 
      ```bash
      pip install -r requirements.txt
@@ -96,7 +133,7 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
    - Accédez au répertoire frontend :
 
      ```bash
-     cd 3.Code source/frontend
+     cd ../frontend
      ```
 
    - Installez les dépendances nécessaires avec npm :
@@ -105,7 +142,7 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
      npm install
      ```
 
-## Exécution de l'application
+## Initialisation de la Base de Données MongoDB
 
 1. **Démarrage de MongoDB :**
    - Ouvrez Docker.
@@ -115,18 +152,41 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
      docker run -d --name mongodb -p 27017:27017 mongo
      ```
 
-2. **Démarrage du Backend :**
+2. **Initialisation des Données MongoDB :**
+   - Créez un script `init-mongo.sh` avec le contenu suivant :
+
+     ```bash
+     #!/bin/bash
+     echo "Restoring MongoDB databases..."
+
+     mongorestore --host localhost --port 27017 --db pretarouler /docker-entrypoint-initdb.d/mongo_dump/cars.bson
+     mongorestore --host localhost --port 27017 --db pretarouler /docker-entrypoint-initdb.d/mongo_dump/users.bson
+     mongorestore --host localhost --port 27017 --db pretarouler /docker-entrypoint-initdb.d/mongo_dump/reservations.bson
+
+     echo "MongoDB databases restored."
+     ```
+
+   - Exécutez le script pour restaurer les données :
+
+     ```bash
+     chmod +x init-mongo.sh
+     ./init-mongo.sh
+     ```
+
+## Exécution de l'application
+
+1. **Démarrage du Backend :**
    - Ouvrez un terminal.
    - Accédez au répertoire backend :
 
      ```bash
-     cd 3.Code source/backend
+     cd ../backend
      ```
 
    - Activez l'environnement virtuel :
 
      ```bash
-     source venv/bin/activate  # Linux
+     source venv/bin/activate  # macOS/Linux
      # venv\Scripts\activate  # Windows
      ```
 
@@ -136,12 +196,12 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
      uvicorn main:app --reload
      ```
 
-3. **Démarrage du Frontend :**
+2. **Démarrage du Frontend :**
    - Ouvrez un autre terminal.
    - Accédez au répertoire frontend :
 
      ```bash
-     cd 3.Code source/frontend
+     cd ../frontend
      ```
 
    - Lancez l'application ReactJS :
@@ -150,8 +210,8 @@ Avant de commencer l'installation, assurez-vous d'avoir les éléments suivants 
      npm start
      ```
 
-4. **Accès à l'application :**
-   - Ouvrez un navigateur Web.
+3. **Accès à l'application :**
+   - Ouvrez votre navigateur Web.
    - Accédez à l'URL suivante pour utiliser l'application :
 
      ```bash

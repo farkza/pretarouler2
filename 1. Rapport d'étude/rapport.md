@@ -2,66 +2,73 @@
 
 ## Consignes
 
-Vous devez mener une étude de ces 4 outils :
+L'objectif de cette étude est d'évaluer et comparer quatre systèmes de gestion de base de données NoSQL :
 
 - Amazon DynamoDB
 - MongoDB
 - Apache Cassandra
-- Un autre SGBD non relationnel de votre choix
+- Couchbase (ou un autre SGBD NoSQL de votre choix)
 
-afin d'identifier celui qui répondra le mieux à vos besoins.
+afin de déterminer celui qui répond le mieux à nos besoins spécifiques.
 
 ## Sommaire
 
 - [Introduction](#introduction)
+- [Critères de Choix](#critères-de-choix)
 - [1. Amazon DynamoDB](#1-amazon-dynamodb)
-  - [Caractéristiques de DynamoDB](#caractéristiques-de-dynamodb)
-  - [Performances de DynamoDB](#performances-de-dynamodb)
-  - [Cas d'utilisation de DynamoDB](#cas-dutilisation-de-dynamodb)
-  - [Limitations de DynamoDB](#limitations-de-dynamodb)
+  - [Caractéristiques](#caractéristiques-de-dynamodb)
+  - [Performances](#performances-de-dynamodb)
+  - [Cas d'utilisation](#cas-dutilisation-de-dynamodb)
+  - [Limitations](#limitations-de-dynamodb)
+  - [Analyse des Critères](#analyse-des-critères-de-dynamodb)
 - [2. MongoDB](#2-mongodb)
-  - [Caractéristiques de MongoDB](#caractéristiques-de-mongodb)
-  - [Performances de MongoDB](#performances-de-mongodb)
-  - [Cas d'utilisation de MongoDB](#cas-dutilisation-de-mongodb)
-  - [Limitations de MongoDB](#limitations-de-mongodb)
+  - [Caractéristiques](#caractéristiques-de-mongodb)
+  - [Performances](#performances-de-mongodb)
+  - [Cas d'utilisation](#cas-dutilisation-de-mongodb)
+  - [Limitations](#limitations-de-mongodb)
+  - [Analyse des Critères](#analyse-des-critères-de-mongodb)
 - [3. Apache Cassandra](#3-apache-cassandra)
-  - [Caractéristiques de Cassandra](#caractéristiques-de-cassandra)
-  - [Performances de Cassandra](#performances-de-cassandra)
-  - [Cas d'utilisation de Cassandra](#cas-dutilisation-de-cassandra)
-  - [Limitations de Cassandra](#limitations-de-cassandra)
+  - [Caractéristiques](#caractéristiques-de-cassandra)
+  - [Performances](#performances-de-cassandra)
+  - [Cas d'utilisation](#cas-dutilisation-de-cassandra)
+  - [Limitations](#limitations-de-cassandra)
+  - [Analyse des Critères](#analyse-des-critères-de-cassandra)
 - [4. Couchbase](#4-couchbase)
-  - [Caractéristiques de Couchbase](#caractéristiques-de-couchbase)
-  - [Performances de Couchbase](#performances-de-couchbase)
-  - [Cas d'utilisation de Couchbase](#cas-dutilisation-de-couchbase)
-  - [Limitations de Couchbase](#limitations-de-couchbase)
+  - [Caractéristiques](#caractéristiques-de-couchbase)
+  - [Performances](#performances-de-couchbase)
+  - [Cas d'utilisation](#cas-dutilisation-de-couchbase)
+  - [Limitations](#limitations-de-couchbase)
+  - [Analyse des Critères](#analyse-des-critères-de-couchbase)
 - [Conclusion](#conclusion)
 
 ## Introduction
 
-Les systèmes de gestion de base de données NoSQL ont gagné en popularité grâce à leur capacité à gérer de grandes quantités de données non structurées ou semi-structurées, leur évolutivité horizontale et leurs performances élevées. Cette étude compare quatre SGBD NoSQL majeurs : DynamoDB, MongoDB, Cassandra et Couchbase. Nous analyserons leurs caractéristiques, performances, cas d'utilisation et limitations pour déterminer lequel répond le mieux à nos besoins.
+Les systèmes de gestion de base de données NoSQL sont devenus essentiels pour gérer de grandes quantités de données non structurées ou semi-structurées. Leur capacité d'évolution horizontale et leurs performances élevées les rendent idéaux pour de nombreuses applications modernes. Cette étude vise à comparer quatre systèmes NoSQL majeurs : Amazon DynamoDB, MongoDB, Apache Cassandra, et Couchbase. Nous évaluerons leurs caractéristiques, performances, cas d'utilisation, et limitations pour identifier celui qui convient le mieux à nos besoins.
 
 ## Critères de Choix
 
+Pour évaluer ces systèmes, nous avons retenu les critères suivants :
+
 1. **Adaptation au Scaling Out vs Scaling Up** (20%)
-   - La capacité de la base de données à évoluer horizontalement (scaling out) ou verticalement (scaling up).
+   - Capacité de la base de données à évoluer horizontalement (scaling out) ou verticalement (scaling up).
 
 2. **Modélisation et Stockage des Données** (15%)
-   - La capacité de l'outil à modéliser et stocker les données requises pour le service.
+   - Capacité de l'outil à modéliser et stocker les données nécessaires pour le service.
 
 3. **Calculs et Agrégations** (15%)
-   - La capacité de l'outil à effectuer des calculs et agrégations requis par le service.
+   - Capacité de l'outil à effectuer les calculs et agrégations requis par le service.
 
 4. **Coût Total de Propriété** (20%)
-   - Coût de l'outil (licence, hébergement, maintenance, etc.).
+   - Coût global de l'outil, incluant la licence, l'hébergement, la maintenance, etc.
 
 5. **Documentation et Support** (10%)
    - Qualité de la documentation et disponibilité du support.
 
 6. **Disponibilité des Compétences sur le Marché** (10%)
-   - Facilité à trouver des compétences pour l'utilisation de l'outil.
+   - Facilité de trouver des compétences pour utiliser l'outil.
 
 7. **Modèle CAP** (10%)
-   - Analyse de la position de l'outil dans le modèle CAP (Consistance, Disponibilité, Tolérance au partitionnement).
+   - Position de l'outil dans le modèle CAP (Consistance, Disponibilité, Tolérance au partitionnement).
 
 ## 1. Amazon DynamoDB
 
@@ -174,11 +181,11 @@ Les systèmes de gestion de base de données NoSQL ont gagné en popularité gr�
 2. **Modélisation et Stockage des Données** : Adapté pour des données structurées avec besoin de haute disponibilité.
 3. **Calculs et Agrégations** : Moins adapté pour des agrégations complexes.
 4. **Coût** : Open source, mais le coût peut augmenter avec la gestion et le support.
-5
-
-. **Documentation et Support** : Bonne documentation, mais support commercial nécessaire pour une utilisation avancée.
+5. **Documentation et Support** : Bonne documentation, mais support commercial nécessaire pour une utilisation avancée.
 6. **Compétences** : Compétences disponibles, mais moins courantes que MongoDB.
-7. **Modèle CAP** : AP (Disponibilité et Tolérance au partitionnement, Consistance éventuellement).
+7. **Modèle CAP**
+
+ : AP (Disponibilité et Tolérance au partitionnement, Consistance éventuellement).
 
 ## 4. Couchbase
 
@@ -222,16 +229,16 @@ Les systèmes de gestion de base de données NoSQL ont gagné en popularité gr�
 
 Après avoir analysé les critères de choix pour DynamoDB, MongoDB, Cassandra et Couchbase, MongoDB se distingue comme la meilleure solution pour les raisons suivantes :
 
-1. **Flexibilité du Modèle de Données** : MongoDB offre une grande flexibilité grâce à son modèle de données basé sur des documents JSON, ce qui permet une évolution facile du schéma sans impact majeur sur les applications.
+1. **Flexibilité du Modèle de Données** : MongoDB offre une grande flexibilité grâce à son modèle de données basé sur des documents JSON, permettant une évolution facile du schéma sans impact majeur sur les applications.
 
 2. **Transactions ACID** : Depuis la version 4.0, MongoDB supporte les transactions ACID, garantissant l'intégrité des données pour des opérations complexes.
 
 3. **Écosystème et Intégration** : MongoDB bénéficie d'un large écosystème de bibliothèques et d'outils, facilitant son intégration avec divers langages de programmation et frameworks.
 
-4. **Communauté et Support** : MongoDB dispose d'une vaste communauté de développeurs et d'un support professionnel disponible, ce qui est un atout majeur pour la résolution de problèmes et l'implémentation de solutions.
+4. **Communauté et Support** : MongoDB dispose d'une vaste communauté de développeurs et d'un support professionnel disponible, un atout majeur pour la résolution de problèmes et l'implémentation de solutions.
 
 5. **Performance et Scalabilité** : Bien que la gestion du sharding puisse être complexe, MongoDB offre des solutions robustes pour la scalabilité horizontale et des performances élevées adaptées à une grande variété de cas d'utilisation.
 
-6. **Modèle CAP** : MongoDB est conforme au modèle CP, ce qui signifie qu'il privilégie la consistance et la tolérance au partitionnement, tout en offrant une disponibilité élevée.
+6. **Modèle CAP** : MongoDB est conforme au modèle CP, privilégiant la consistance et la tolérance au partitionnement, tout en offrant une disponibilité élevée.
 
-**MongoDB représente donc le meilleur compromis entre flexibilité, performance, et support des transactions ACID, répondant ainsi de manière optimale à nos besoins.**
+**En conclusion, MongoDB représente le meilleur compromis entre flexibilité, performance, et support des transactions ACID, répondant ainsi de manière optimale à nos besoins.**

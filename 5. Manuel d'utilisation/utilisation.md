@@ -33,7 +33,7 @@
    - Cliquez sur le véhicule souhaité dans les résultats de recherche.
 
 2. **Consultation des Informations Détaillées :**
-   - Trouvez les avantages du modèle, les équipements disponibles et les photos.
+   - Consultez les avantages du modèle, les équipements disponibles et les photos.
 
 ### Actions des Utilisateurs
 
