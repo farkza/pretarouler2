@@ -67,6 +67,14 @@ body {
     border-radius: 30px;
     cursor: pointer;
   }
+
+  .logout-button {
+    background-color: transparent; /* Fond transparent */
+    color: #0F0E43;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+  }  
   
   .car-details {
     display: flex;

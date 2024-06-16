@@ -1,6 +1,9 @@
 # Utiliser une image de base pour Python
 FROM python:3.9-slim
 
+# Assurez-vous que pip est installé
+RUN apt-get update && apt-get install -y python3-pip
+
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
