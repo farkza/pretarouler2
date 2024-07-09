@@ -12,6 +12,7 @@ __pycache__/
 instance/
 .webassets-cache
 .env.bak
-.venv/
 .envrc
 .vscode/
+frontend/node_modules/
+backend/venv/
